@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>class-4</title>
+        <script >
+            let timeout;
+            async function debouncedSum(){
+                clearTimeout(timeout)
+                timeout = setTimeout(()=>{
+                    fn()
+                },500)
+            }
+            async function fn(){
+                const a = parseInt(document.getElementById('first').value);
+                const b =parseInt(document.getElementById('second').value);
+                const divi = document.getElementById('finalSum');
+                const response = await fetch(`http://localhost:3333/sum?a=${a}&b=${b}`,{
+                    method:"GET",
+                });
+                const data = await response.json();
+                divi.innerHTML = `<h2>Sum is ${data.result} </h2>`
+            }
+        </script>
+    </head>
+    <body>
+        <input oninput="debouncedSum()" type="text"placeholder="first number" id="first"><br>
+        <input oninput="debouncedSum()" type="text"placeholder="second number" id="second"><br>
+        <!-- <button onclick="fn()">Calculate Sum</button><br> -->
+        <div id="finalSum"></div>
+    </body>
+</html>

@@ -1,0 +1,56 @@
+fetch function returns a promise then
+then again the response has to be awaited as response.json() or response.text()
+only then we can send it
+this is how fetch api is written
+
+debouncing and throttling
+<html>
+    <head>
+        <title>class-4</title>
+        <script >
+            async function fn(){
+                const a = parseInt(document.getElementById('first').value);
+                const b =parseInt(document.getElementById('second').value);
+                const divi = document.getElementById('finalSum');
+                const response = await fetch(`http://localhost:3333/sum?a=${a}&b=${b}`,{
+                    method:"GET",
+                });
+                const data = await response.json();
+                divi.innerHTML = `<h2>Sum is ${data.result} </h2>`
+            }
+        </script>
+    </head>
+    <body>
+        <input oninput="fn()" type="text"placeholder="first number" id="first"><br>
+        <input oninput="fn()" type="text"placeholder="second number" id="second"><br>
+        <!-- <button onclick="fn()">Calculate Sum</button><br> -->
+        <div id="finalSum"></div>
+    </body>
+</html>
+
+
+using this may lead to too many calls unnecessary what websites do to save this is 
+if someone is typing too fast it lets them type and then finally gets the output
+if user hasnt typed for more than 100 ms then only send the request
+
+
+let timeout;
+async function debouncedSum(){
+    clearTimeout(timeout)
+    timeout = setTimeout(()=>{
+        fn()
+    },100)
+    }
+async function fn(){
+                const a = parseInt(document.getElementById('first').value);
+                const b =parseInt(document.getElementById('second').value);
+                const divi = document.getElementById('finalSum');
+                const response = await fetch(`http://localhost:3333/sum?a=${a}&b=${b}`,{
+                    method:"GET",
+                });
+                const data = await response.json();
+                divi.innerHTML = `<h2>Sum is ${data.result} </h2>`
+            }
+
+
+we get ID of the cloclk
